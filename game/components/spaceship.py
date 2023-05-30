@@ -4,7 +4,7 @@ from pygame.sprite import Sprite
 from game.utils.constants import SPACESHIP, SCREEN_WIDTH, SCREEN_HEIGHT
 
 class Spaceship(Sprite):
-    """Creamos nuestra nave y sus caracteristicas"""
+    """Creamos nuestra nave y definimos sus caracteristicas"""
     SHIP_WIDTH = 40
     SHIP_HEIGHT = 60
     X_POS = (SCREEN_WIDTH // 2) - SHIP_WIDTH
@@ -12,6 +12,7 @@ class Spaceship(Sprite):
     SHIP_SPEED = 10
 
     def __init__(self):
+        """Inicializamos"""
         self.image = SPACESHIP
         self.image = pygame.transform.scale(self.image, (self.SHIP_WIDTH, self.SHIP_HEIGHT))
         self.rect = self.image.get_rect()
@@ -27,14 +28,25 @@ class Spaceship(Sprite):
             self.move_up()
         elif user_input[pygame.K_DOWN]:
             self.move_down()
+    
 
     def move_left(self):
-        if self.rect.left > 0:
-            self.rect.x -= self.SHIP_SPEED
+        self.rect.x -= self.SHIP_SPEED
+        if self.rect.right < 0:
+            self.rect.left = SCREEN_WIDTH
 
     def move_right(self):
-        if self.rect.right < SCREEN_WIDTH:
-            self.rect.x += self.SHIP_SPEED
+        self.rect.x += self.SHIP_SPEED
+        if self.rect.left > SCREEN_WIDTH:
+            self.rect.right = 0
+
+    #def move_left(self):
+        #if self.rect.left > 0:
+            #self.rect.x -= self.SHIP_SPEED
+
+    #def move_right(self):
+        #if self.rect.right < SCREEN_WIDTH:
+            #self.rect.x += self.SHIP_SPEED
 
     def move_up(self):
         if self.rect.y > SCREEN_HEIGHT // 2:
