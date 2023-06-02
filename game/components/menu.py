@@ -2,7 +2,7 @@ import pygame
 
 from game.utils.constants import FONT_STYLE, SCREEN_HEIGHT, SCREEN_WIDTH
 
-class Menu(object):
+class Menu:
 	"""docstring for Menu"""
 	HALF_SCREEN_HEIGHT = SCREEN_HEIGHT // 2
 	HALF_SCREEN_WIDTH = SCREEN_WIDTH // 2

@@ -12,6 +12,7 @@ class Spaceship(Sprite):
     Y_POS = 500
     SHIP_SPEED = 10
 
+
     def __init__(self):
         """Inicializamos"""
         self.image = SPACESHIP
@@ -20,6 +21,7 @@ class Spaceship(Sprite):
         self.rect.x = self.X_POS
         self.rect.y = self.Y_POS
         self.type = 'player'
+        
 
     def update(self, user_input, game):
         if user_input[pygame.K_LEFT]:

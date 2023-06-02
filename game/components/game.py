@@ -5,6 +5,7 @@ from game.components.spaceship import Spaceship
 from game.components.enemies.enemy_manager import EnemyManager
 from game.components.bullets.bullet_manager import BulletManager
 from game.components.menu import Menu
+from game.components.menu_with_score import MenuWithScore
 
 class Game:
     def __init__(self):
@@ -20,6 +21,9 @@ class Game:
         self.y_pos_bg = 0
         self.death_count = 0
         self.score = 0
+        self.highest_score = 0
+        self.total_deaths = 0
+        self.menu = MenuWithScore('Press Any Key To Start...', self.screen, self.score, self.highest_score, self.total_deaths)
         self.player = Spaceship()
         self.enemy_manager = EnemyManager()
         self.bullet_manager = BulletManager()
@@ -38,6 +42,8 @@ class Game:
         self.score = 0
         self.enemy_manager.reset()
         self.bullet_manager.reset()
+
+        self.menu = MenuWithScore('Game over . Press any key to restart', self.screen, self.score, self.highest_score, self.total_deaths)
         self.playing = True
         while self.playing:
             self.events()
@@ -83,9 +89,10 @@ class Game:
         half_screen_height = SCREEN_HEIGHT // 2
 
         self.menu.reset_screen_color(self.screen)
-
-        if self.death_count > 0:
-            self.menu.update_message('New message')
+        #self.menu = MenuWithScore('Press Any Key To Start...', self.screen, self.score, self.highest_score, self.total_deaths)
+        self.menu.update_message('Press Any Key To Start...')
+        if self.total_deaths > 0:
+            self.menu.update_message('Game over. Press any key to restart')
 
         icon = pygame.transform.scale(ICON, (80, 120))
         self.screen.blit(icon, (half_screen_width - 50, half_screen_height - 150))
@@ -95,6 +102,11 @@ class Game:
 
     def update_score(self):
         self.score += 1
+        if self.score > self.highest_score:
+            self.highest_score = self.score
+
+    #def update_total_deaths(self):
+        #self.total_deaths +=1
 
     def draw_score(self):
         font = pygame.font.Font(FONT_STYLE, 30)
