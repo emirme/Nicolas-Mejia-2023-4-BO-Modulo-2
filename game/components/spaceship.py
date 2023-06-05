@@ -69,3 +69,4 @@ class Spaceship(Sprite):
     self.image = image
     self.image = pygame.transform.scale(self.image, size)
   
+  
